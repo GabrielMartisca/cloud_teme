@@ -1,0 +1,47 @@
+/* src/app/components/post-detail/post-detail.component.scss */
+.post-detail-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .back-link {
+    margin-bottom: 16px;
+  }
+  
+  .post-card {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+  }
+  
+  .post-avatar, .comment-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    overflow: hidden;
+    
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .post-actions, .comment-actions {
+    margin-left: auto;
+  }
+  
+  .post-content {
+    margin: 16px 0;
+    white-space: pre-wrap;
+    
+    &.translated {
+      background-color: #f5f5f5;
+      padding: 12px;
+      border-radius: 4px;
+    }
+  }
+  

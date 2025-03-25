@@ -1,0 +1,132 @@
+<div class="feed-container">
+  <div class="feed-header">
+    <h1>Your Feed</h1>
+    <button mat-raised-button color="primary" routerLink="/create-post">
+      <mat-icon>add</mat-icon>
+      Create Post
+    </button>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+  
+  <div *ngIf="!isLoading && posts.length === 0" class="empty-state">
+    <mat-icon class="empty-icon">article</mat-icon>
+    <h2>No posts yet</h2>
+    <p>Be the first to create a post!</p>
+    <button mat-raised-button color="primary" routerLink="/create-post">Create Post</button>
+  </div>
+  
+  <div *ngIf="!isLoading && posts.length > 0" class="post-list">
+    <mat-card *ngFor="let post of posts" class="post-card">
+      <mat-card-header>
+        <div mat-card-avatar class="post-avatar">
+          <mat-card-header>
+            <mat-card-title>
+              <span [routerLink]="['/user', post.user_id]" style="cursor: pointer; text-decoration: none;">
+                {{ post.username || 'Anonymous' }}
+              </span>
+            </mat-card-title>          </mat-card-header>     
+         </div>
+        
+        <div class="post-actions">
+          <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Post options">
+            <mat-icon>menu</mat-icon>
+          </button> 
+          <mat-menu #postMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="translateMenu">
+              <mat-icon>translate</mat-icon>
+              <span>Translate</span>
+            </button>
+            <button mat-menu-item *ngIf="currentUser?.id === post.user_id" (click)="editPost(post)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item *ngIf="currentUser?.id === post.user_id" (click)="deletePost(post.id ?? 0)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+          <mat-menu #translateMenu="matMenu">
+            <button mat-menu-item *ngFor="let lang of availableLanguages" (click)="translatePost(post, lang.code)">
+              {{ lang.name }}
+            </button>
+          </mat-menu>
+        </div>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div *ngIf="!post.isEditing; else editMode">
+          <div *ngIf="!post.isTranslated" class="post-content">
+            {{ post.content }}
+          </div>
+          <mat-card-subtitle *ngIf="post.location">
+            {{ "Location: " + post.location }}
+          </mat-card-subtitle>
+          
+          <div *ngIf="post.isTranslated" class="post-content translated">
+            <div class="translation-header">
+              <div class="translation-label">Translated to {{ post.translatedLanguage }}</div>
+              <button mat-button color="primary" (click)="resetTranslation(post)">Show original</button>
+            </div>
+            <div class="translated-text">{{ post.translatedContent }}</div>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <ng-template #editMode>
+          <textarea [(ngModel)]="post.editedContent"></textarea>
+          <button mat-button color="primary" (click)="savePost(post)">Save</button>
+          <button mat-button color="warn" (click)="cancelEditPost(post)">Cancel</button>
+        </ng-template>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-button>
+          Share
+        </button>
+        
+        <!-- Toggle Comments Button -->
+        <button mat-button (click)="toggleComments(post)">
+          {{ post.showComments ? 'Hide Comments' : 'Show Comments' }}
+        </button>
+      </mat-card-actions>
+      
+      <!-- Comments Section -->
+      <div *ngIf="post.showComments" class="comments-section">
+        <app-create-comment 
+        [postId]="post.id ?? 0" 
+        (commentAdded)="refreshComments(post)"> <!-- This is correct -->
+      </app-create-comment>
+      <div *ngFor="let comment of post.comments" class="comment">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ comment.username || 'Anonymous' }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- Inline Editing -->
+            <div *ngIf="!comment.isEditing; else editMode">
+              {{ comment.content }}
+            </div>
+            <ng-template #editMode>
+              <textarea [(ngModel)]="comment.editedContent"></textarea>
+              <button mat-button color="primary" (click)="saveComment(post, comment)">Save</button>
+              <button mat-button color="warn" (click)="cancelEdit(comment)">Cancel</button>
+            </ng-template>
+          </mat-card-content>
+          <mat-card-actions>
+            <!-- Only show edit and delete options if the current user is the owner of the comment -->
+            <button mat-icon-button *ngIf="currentUser?.id === comment.user_id" (click)="editComment(comment)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="currentUser?.id === comment.user_id" color="warn" (click)="deleteComment(post, comment.id ?? 0)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

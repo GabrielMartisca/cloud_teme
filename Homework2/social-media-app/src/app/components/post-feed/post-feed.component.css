@@ -1,0 +1,215 @@
+/* src/app/components/post-feed/post-feed.component.scss */
+.feed-container {
+  max-width: 1500px; /* Increased from 600px for wider posts */
+  margin: 0 auto;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 118px; /* Slightly increased from 16px */
+}
+
+.post-card {
+  width: 1010px;
+  min-height: 140px; /* Added minimum height */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  position: relative;
+  padding: 20px; /* Increased from default */
+
+  mat-card-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 16px 16px 0; /* Adjust padding as needed */
+  }
+
+  .post-header-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  mat-card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 8px; /* Space between name and location */
+  }
+
+  mat-card-subtitle {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+
+    .location-icon {
+      margin-right: 4px;
+    }
+  }
+
+  .post-actions {
+    margin-left: auto;
+  }
+
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+mat-card-title {
+  font-size: 16px;  /* Adjust the font size as needed */
+  font-weight: bold;  /* Optional: Make the username bold */
+}
+
+
+.post-actions {
+  margin-left: auto;
+  position: relative;
+}
+
+.mat-menu-panel {
+  min-width: 180px !important;
+  max-height: 100vh !important;
+  overflow: visible !important;
+  
+  &.translate-menu {
+    margin-left: 8px;
+  }
+}
+
+.cdk-overlay-container {
+  z-index: 1000 !important;
+}
+
+.mat-menu-content {
+  padding: 0 !important;
+}
+
+.mat-menu-item {
+  display: flex;
+  justify-content: space-between;
+  line-height: 36px !important;
+  height: 36px !important;
+  
+  .mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.mat-menu-submenu-icon {
+  margin-left: auto;
+  padding-left: 16px;
+}
+
+.post-content {
+  margin: 18px 0; /* Slightly increased from 16px */
+  white-space: pre-wrap;
+  
+  &.translated {
+    background-color: #f5f5f5;
+    padding: 12px;
+    border-radius: 4px;
+  }
+}
+
+.translation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.translation-label {
+  color: #666;
+  display: flex;
+  align-items: center;
+  
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}
+
+.translated-text {
+  color: #333;
+}
+
+.translation-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  color: #666;
+}
+
+.location-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  text-align: center;
+  
+  .empty-icon {
+    font-size: 64px;
+    height: 64px;
+    width: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+  
+  h2 {
+    margin: 0 0 8px 0;
+    font-weight: 500;
+  }
+  
+  p {
+    margin: 0 0 24px 0;
+    color: #666;
+  }
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

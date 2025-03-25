@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="app-header">
+  <div class="container">
+    <span class="logo" routerLink="/">{{title}}</span>
+    <span class="spacer"></span>
+    
+    <ng-container *ngIf="currentUser; else loginButtons">
+      <button mat-icon-button [matMenuTriggerFor]="createMenu" aria-label="Create new content">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #createMenu="matMenu">
+        <button mat-menu-item routerLink="/create-post">
+          <mat-icon>post_add</mat-icon>
+          <span>New Post</span>
+        </button>
+      </mat-menu>
+      
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
+        <mat-icon>account_circle</mat-icon>
+        {{ currentUser.username }}
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/user/{{currentUser.id}}">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+    
+    <ng-template #loginButtons>
+      <button mat-button routerLink="/login">Login</button>
+      <button mat-button routerLink="/register">Register</button>
+    </ng-template>
+  </div>
+</mat-toolbar>
+
+<div class="container main-content">
+  <router-outlet></router-outlet>
+</div>

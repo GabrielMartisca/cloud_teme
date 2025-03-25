@@ -1,0 +1,58 @@
+<div class="user-profile-container" *ngIf="!isLoading && user">
+    <div class="profile-header">
+
+      <div class="profile-info">
+        <div *ngIf="!editMode" class="profile-details">
+          <h1>{{ user.username }}</h1>
+          <div class="profile-metadata">
+          </div>
+        </div>
+  
+        <div *ngIf="editMode" class="edit-profile-form">
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="editedUser.username">
+          </mat-form-field>
+
+
+        </div>
+  
+        <div *ngIf="isCurrentUser" class="profile-actions">
+          <button *ngIf="!editMode" mat-raised-button color="primary" (click)="enterEditMode()">
+            <mat-icon>edit</mat-icon>
+            Edit Profile
+          </button>
+          <div *ngIf="editMode" class="edit-buttons">
+            <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
+            <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="user-posts-section">
+      <h2>Posts ({{ userPosts.length }})</h2>
+      
+      <div *ngIf="userPosts.length === 0" class="no-posts">
+        <mat-icon>article</mat-icon>
+        <p>No posts yet</p>
+      </div>
+  
+      <div *ngIf="userPosts.length > 0" class="posts-grid">
+        <mat-card *ngFor="let post of userPosts" class="post-card">
+          <mat-card-content>
+            {{ post.content }}
+          </mat-card-content>
+          <mat-card-actions>
+            <button *ngIf="isCurrentUser" mat-icon-button color="warn" (click)="deletePost(post.id ?? 0)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>

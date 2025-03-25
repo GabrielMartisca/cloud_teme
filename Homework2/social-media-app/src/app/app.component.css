@@ -1,0 +1,96 @@
+/* Header styles */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+/* Main content styles */
+.main-content {
+  padding: 24px 16px;
+  min-height: calc(100vh - 64px);
+  background-color: #f5f5f5;
+}
+
+/* Logo styles */
+.logo {
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Spacer to push items to the right */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* User menu button styles */
+.user-menu-button {
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-button mat-icon {
+  margin-right: 8px;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column; /* Stack header items vertically */
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 0 8px; /* Reduce padding for smaller screens */
+  }
+
+  .logo {
+    font-size: 1.2rem; /* Smaller logo font size */
+  }
+
+  .user-menu-button {
+    margin-top: 8px; /* Add spacing between stacked elements */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 16px 8px; /* Reduce padding for very small screens */
+  }
+
+  .logo {
+    font-size: 1rem; /* Further reduce logo font size */
+  }
+
+  .user-menu-button mat-icon {
+    margin-right: 4px; /* Reduce spacing for icons */
+  }
+}

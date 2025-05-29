@@ -1,0 +1,13 @@
+runtime: nodejs20  # latest supported runtime
+service: frontend
+handlers:
+  - url: /assets
+    static_dir: dist/travel-journal-frontend/browser/assets
+
+  - url: /static/(.*)
+    static_files: dist/travel-journal-frontend/browser/assets/\1
+    upload: dist/travel-journal-frontend/browser/assets/.*
+
+  - url: /(.*)
+    static_files: dist/travel-journal-frontend/browser/browser/\1
+    upload: dist/travel-journal-frontend/browser/browser/.*

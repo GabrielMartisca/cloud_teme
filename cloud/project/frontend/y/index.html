@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyMap - Find Your Study Group</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <i class="fas fa-map-marked-alt"></i>
+      <span>EduC-AI</span>
+    </div>
+    <div class="header-controls">
+      <button class="btn" onclick="showMap()">Map</button>
+      <button class="btn" onclick="showUpload()">Uploads</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <aside class="sidebar">
+      <!-- Your form and instructions here -->
+      <h2><i class="fas fa-users"></i>Create Study Group</h2>
+      <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i>How it works</h3>
+        <ul>
+          <li>Click on the map</li>
+          <li>Fill in your group info</li>
+          <li>Share with students nearby</li>
+        </ul>
+      </div>
+      <form id="postForm" class="post-form" style="display:none;">
+        <div class="form-group">
+          <label for="title">Study Group Title</label>
+          <input type="text" id="title" class="form-input" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" class="form-input" required></textarea>
+        </div>
+        <button type="submit" class="btn">Create Study Group</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelForm()">Cancel</button>
+      </form>
+    </aside>
+
+    <main class="map-container" id="map-section">
+      <div class="map-overlay">
+        <div class="map-control" onclick="centerOnUser()"><i class="fas fa-crosshairs"></i> My Location</div>
+        <div class="map-control" onclick="toggleSidebar()"><i class="fas fa-bars"></i> Menu</div>
+      </div>
+      <div id="map"></div>
+    </main>
+
+    <!-- Notes Section -->
+    <div id="notes-section" style="display:none; padding: 2rem; width: 100%;">
+      <h2>Study Notes</h2>
+      <textarea id="notesArea" placeholder="Write your notes here..." style="width:100%; height:200px;"></textarea>
+      <br><br>
+      <button class="btn" onclick="saveNote()">💾 Save Note</button>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="upload-section" style="display:none; width: 100%;">
+    <h2>Upload Documents or Images</h2>
+    <form id="uploadForm">
+        <div class="file-input-wrapper">
+        <i class="fas fa-cloud-upload-alt file-input-icon"></i>
+        <div class="file-input-text">Drop files here or click to browse</div>
+        <div class="file-input-subtext">Supports documents, images, and more</div>
+        <input type="file" id="fileInput" multiple style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;" />
+        </div>
+        <button type="submit" class="btn">
+        <i class="fas fa-upload"></i>
+        Upload Files
+        </button>
+    </form>
+    <div id="fileList">
+        <div class="file-list-empty">No files selected</div>
+    </div>
+    </div>
+
+  <!-- Notification Container -->
+  <div id="notification-container"></div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHZXLTygZ_2RhbPgjPtXLSRQAOptZmPjU&callback=initMap"
+    async defer></script>
+
+</body>
+</html>

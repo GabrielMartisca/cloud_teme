@@ -1,0 +1,20 @@
+*
+!app.yaml
+!dist/
+!dist/travel-journal-frontend/**
+*
+!app.yaml
+!dist/travel-journal-frontend/browser/**
+
+# Exclude dev files/folders
+node_modules/
+.angular/
+.vscode/
+src/
+e2e/
+karma.conf.js
+tsconfig*.json
+angular.json
+package.json
+package-lock.json
+README.md
